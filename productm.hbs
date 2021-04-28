@@ -1,0 +1,402 @@
+
+<html>
+<head>
+    <!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="/home">Procurement</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Transaction
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+              <a class="nav-link" href="/inventory">Inventory</a>
+              <a class="nav-link" href="/inventory">Order Product</a>
+              <a class="nav-link" href="/inventory">Deliver Product</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Monitoring
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" href="/vproduct">Supply</a>
+                <a class="dropdown-item" href="/viewbid">Bidding</a>
+                
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/invalid">New Supplier</a>
+                <a class="dropdown-item" href="/approvesupp">Approve Supplier</a>
+                <a class="dropdown-item" href="/denysupp">Deny Supplier</a>
+                
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Maintenance
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" href="/category">Category</a>
+                <a class="dropdown-item" href="/product">Product</a>
+              </div>
+            </li>
+          </ul>
+          
+    <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Logout <span class="sr-only">(current)</span></a>
+            </li>
+    </ul>
+      </nav>
+
+   
+      <form action="\addproduct" method="POST" style="padding: 100px;">
+  <fieldset>
+    
+  <legend style="text-align: center;">Add Product</legend>
+    <div class="form-group">
+      <label for="disabledTextInput">Product Name:</label>
+      <input type="text" id="disabledTextInput" name="name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="disabledSelect">Category: </label>
+      <select id="disabledSelect" name="cat" class="form-control">
+        {{#each result}}
+        <option>{{cname}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="disabledTextInput">Description:</label>
+      <input type="text" id="disabledTextInput" name="desc" class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="disabledTextInput">Volume:</label>
+
+<div class="radio">
+  <label>
+    <input type="radio" name="volume" value="Box"> Box
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="volume" value="Bundle"> Bundle
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="volume" value="Sack"> Sack
+</label>
+</div>
+<div class="input-group">
+  <div class="input-group-prepend">
+    <div class="input-group-text">
+      <input type="radio" name="volume" value="other" >
+    </div>
+  </div>
+  <input type="text" class="form-control" name="ovolume" placeholder="Others" style="width: 50%;">
+</div>
+</div>
+
+    <div class="form-group">
+      <label for="disabledTextInput">Unit:</label>
+
+<div class="radio">
+  <label>
+    <input type="radio" name="unit" value="Pcs"> Pcs
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="unit" value="Meters"> Meter
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="unit" value="Kg"> Kg
+</label>
+</div>
+<div class="input-group">
+  <div class="input-group-prepend">
+    <div class="input-group-text">
+      <input type="radio" name="unit" value="other">
+    </div>
+  </div>
+  <input type="text" class="form-control" name="ounit" placeholder="Others" style="width: 50%;">
+</div>
+</div>
+    <div class="form-group">
+      <label for="disabledTextInput">Per Volume:</label>
+      <input type="Number" id="disabledTextInput" name="pvolume" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+  <fieldset style="padding:100px">
+  <div class="table-responsive">
+  <legend style="text-align: center;">View Products</legend>
+<table class="table" id="mytable">
+<thead>
+    <tr>
+      <th>#</th>
+      <th>Product Name</th>
+      <th>Category Type</th>
+      <th>Description</th>
+      <th>Per Volume</th>
+      <th>Volume</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="yey">
+  </tbody>
+</table>  
+</div>
+</fieldset>
+
+    
+	 <!-- Edit Product Modal-->
+   <form id="myForm" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <label for="disabledSelect">Product Name</label>
+                  <input type="text" name="name" id="prodname" class="form-control product_name" placeholder="Product Name" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="disabledSelect">Description</label>
+                  <input type="text" name="desc" class="form-control product_name" id="des" placeholder="Description" required>
+              </div>
+
+              
+            
+              
+            <div class="form-group">
+               <label for="disabledSelect">Category</label>
+              <select id="mySelect" name="cat" class="form-control">
+              {{#each result}}
+              <option id="{{cname}}" value="{{cname}}">{{cname}}</option>
+              {{/each}}
+            </select>
+            </div>
+            
+    <div class="form-group">
+      <label for="disabledTextInput">Volume:</label>
+
+<div class="radio">
+  <label>
+    <input type="radio" name="volume" value="Box" id="Box"> Box
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="volume" value="Bundle" id="Bundle"> Bundle
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="volume" value="Sack" id="Sack"> Sack
+</label>
+</div>
+<div class="input-group">
+  <div class="input-group-prepend">
+    <div class="input-group-text">
+      <input type="radio" name="volume" value="other" id="ovolume">
+    </div>
+  </div>
+  <input type="text" class="form-control" name="ovolume"  id="otvolume" placeholder="Others" style="width: 50%;">
+</div>
+</div>
+
+    <div class="form-group">
+      <label for="disabledTextInput">Unit:</label>
+
+<div class="radio">
+  <label>
+    <input type="radio" name="unit" id="Pcs" value="Pcs"> Pcs
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="unit" id="Meters" value="Meters"> Meter
+</label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="unit" id="Kg" value="Kg"> Kg
+</label>
+</div>
+<div class="input-group">
+  <div class="input-group-prepend">
+    <div class="input-group-text">
+      <input type="radio" name="unit" id="uother" value="other">
+    </div>
+  </div>
+  <input type="text" class="form-control" name="ounit" id="utother" placeholder="Others" style="width: 50%;">
+</div>
+</div>  
+<div class="form-group">
+                  <label for="disabledSelect">Per Volume</label>
+                  <input type="Number" name="pvolume" class="form-control product_name" id="pvolume" required>
+              </div>
+
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="product_id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+
+
+<script>
+ $(document).ready(function()
+ {
+    $('#mytable').on('click','.edit',function(){
+        var id = $(this).data('id1');
+        var name = $(this).data('id2');
+        var cid = $(this).data('id3');
+        var des = $(this).data('id4');
+        var punit = $(this).data('id5');
+        var unit = $(this).data('id6');
+        var volume = $(this).data('id7');
+
+        if(unit.toString() == "Pcs")
+        {
+            document.getElementById(unit).checked = true;
+        }
+        else if(unit.toString() == "Meters")
+        {
+            document.getElementById(unit).checked = true;
+        }
+        else if(unit.toString() == "Kg")
+        {
+            document.getElementById(unit).checked = true;
+
+        }
+        else
+        {
+            document.getElementById("uother").checked = true;
+            document.getElementById("utother").value = unit;
+        }
+
+        
+        if(volume.toString() == "Box" || volume.toString() == "Bundle" || volume.toString() == "Sack")
+        {
+            document.getElementById(volume).checked = true;
+        }
+        else
+        {
+            document.getElementById("ovolume").checked = true;
+            document.getElementById("otvolume").value = unit;
+        }
+        
+        $('#EditModal').modal('show');
+        document.getElementById("mySelect").value = cid;
+        
+        let update = "/updateproduct?para1="+id;
+        document.getElementById("prodname").value = name;
+        document.getElementById("des").value = des;
+        document.getElementById("pvolume").value = punit;
+        document.getElementById("myForm").action = update;
+      });
+
+      
+    $('#mytable').on('click','.delete',function(){
+        var id = $(this).data('id1');
+        window.location.href = "/deleteproduct?para1="+id;
+      });
+
+
+    display();
+ });
+  function display()
+  {
+    let array = [];
+    let array1 = [];
+    let uarray = [];
+    let uarray1 = [];
+    let uarray2 = [];
+    let uarray3 = [];
+    var list = $("#yey");
+    list.empty();
+    let ctr = 0;
+    {{#each result}}
+    array[ctr] = "{{cid}}";
+    array1[ctr] = "{{cname}}";
+    ctr++;
+    {{/each}}
+
+    let ctr1 = 0;
+    {{#each resultss}}
+    uarray[ctr1] = "{{pid}}";
+    uarray1[ctr1] = "{{b_p}}";
+    uarray2[ctr1] = "{{bundles}}";
+    uarray3[ctr1] = "{{unitm}}";
+    ctr1++;
+    {{/each}}
+    let count = 0;
+    {{#each results}}
+    count++;
+    var cat;
+    var unit;
+    var volume;
+    var punit;
+    for(let x = 0;x < ctr; x++)
+    {
+        if(array[x].toString() == "{{pcat}}")
+        {
+            cat = array1[x];
+        }
+    }
+    for(let x= 0;x < ctr1;x++)
+    {
+      
+        if(uarray[x] == "{{pid}}")
+        {
+            punit = uarray1[x];
+            volume = uarray2[x];
+            unit = uarray3[x];
+        }
+    }
+    var add = "<tr><td>"+count+"</td><td>{{pname}}</td><td>"+cat+"</td><td>{{pdescription}}</td><td>"+punit+" "+unit+"</td><td>"+volume+"</td>"+
+    "<td><a href='javascript:void(0)' class='edit'  data-id1='{{pid}}' data-id2='{{pname}}' data-id3='"+cat+"' data-id4='{{pdescription}}' data-id5='"+punit+"' data-id6='"+unit+"' data-id7='"+volume+"'>Edit</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+
+    "<a href='javascript:void(0)' class='delete'  data-id1='{{pid}}'>Delete</a></td></tr>";
+    list.append(add);
+
+    {{/each}}
+  }
+</script>
+</body>
+</html>

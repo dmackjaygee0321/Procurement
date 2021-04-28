@@ -1,0 +1,209 @@
+
+<html>
+<head>
+    <!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<style>
+  td,th
+  {
+      text-align: center;
+  }
+</style>
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="/shome">Supplier</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/shome">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="bid" href="">Bidding</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Transaction
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" id="order" >Ordered Products</a>
+                <a class="dropdown-item" href="/invalid">Shiping Products</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Monitoring
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" id="historybid">Bid History</a>
+                <a class="dropdown-item" href="/invalid">Supply History</a>
+                <a class="dropdown-item" id="awardbid">Award Product</a>
+              </div>
+            </li>
+          </ul>  
+    <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Logout <span class="sr-only">(current)</span></a>
+            </li>
+    </ul>
+        </div>
+         
+      </nav>
+   <script>
+     var sid = localStorage.getItem("sid");
+     var bid = document.getElementById("bid").href = "/sviewbid?para1="+sid;
+     var historybid = document.getElementById("historybid").href = "/sviewbidhistory?para1="+sid;
+     var awardbid = document.getElementById("awardbid").href = "/sawardproduct?para1="+sid;
+     var order = document.getElementById("order").href = "/svieworder?para1="+sid;
+     </script>
+   
+
+<fieldset style="padding:100px">
+  <div class="table-responsive"><section id="payment">
+          
+  <legend style="text-align: center;">Bidding</legend>
+          <form class="form-inline my-2 my-lg-0" id="myForm1" method="POST">
+            <select class="form-control" name="category" id="category">
+                <option>Search by</option>
+                <option>Product Name</option>
+                <option>Category</option>
+              </select><br>
+            <input class="form-control mr-sm-2" type="search" name="search" id="Search" placeholder="Search" aria-label="Search">
+            <button class="form-control" type="submit" onclick="changeaction()">Search</button>
+            <table class="table" id="mytable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Brand Name</th>
+                  <th>Category</th>
+                  <th>Date Posted</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="yey">
+              </tbody>
+              
+            </table>
+          </form>
+        </section>
+</div>
+</fieldset>
+
+ <form id="myForm" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Apply Bid</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="form-group">
+                  <label for="disabledSelect" id="product">Product: </label>
+              </div>
+              <div class="form-group">
+                  <label for="disabledSelect" id="lcategory">Category</label>
+              </div>
+              <div class="form-group">
+                  <label for="disabledSelect" id="lvolume">Volume</label>
+              </div>
+
+              
+              <div class="form-group">  
+                  <label for="disabledSelect" id="lunit"></label>
+                  <input type="Number" name="price" id="price" class="form-control product_name" required>
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="product_id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Apply</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+
+    <script>
+      var sid = localStorage.getItem("sid");  
+      var app_id;
+     $(document).ready(function(){
+      $('#mytable').on('click','.edit',function(){
+        
+        var condi = $(this).data('id6');
+        var id = $(this).data('id1');
+        if(condi.toString() == "Bid")
+        {
+            var name = $(this).data('id2');
+            var cname = $(this).data('id3');
+            var volumes = $(this).data('id4');
+            var unit = $(this).data('id5');
+            document.getElementById("product").innerHTML = "Brand Name: "+name;
+            document.getElementById("lcategory").innerHTML = "Category: "+cname;
+            document.getElementById("lvolume").innerHTML = "Per "+volumes+": "+unit;
+            document.getElementById("lunit").innerHTML = "Price Per "+volumes+": ";
+            document.getElementById("price").value = "0";
+            $('#EditModal').modal('show');
+            document.getElementById("myForm").action = "/sapplybid?para1="+id+"&para2="+sid;
+        }
+        else
+        {
+            window.location.href = "/scancelbid?para1="+app_id+"&para2="+sid;
+        }
+        });
+        display();
+    });
+    
+  function display()
+  {
+    
+    let array = [];
+    let array1 = [];
+    var x=0;
+    {{#each results}}
+    array[x] = "{{bid_id}}";
+    array1[x] = "{{apply_id}}";
+    x++;
+    {{/each}}
+    var list = $("#yey");
+    var count = 0;
+    {{#each result}}
+    var condition = 0;
+    for(let z = 0;z < x;z++)
+    {
+       if(array[z].toString() == "{{bidid}}")
+       {
+          app_id = array1[z];
+          condition = 1;
+       }
+    }
+    var action = "Bid";
+    if(condition == 1)
+    {
+        action = "Cancel Bid";
+    }
+    count++;
+    var add = "<tr><td>"+count+"</td><td>{{pname}}</td><td>{{cname}}</td><td>{{bdate}}</td>"+
+    "<td><a href='javascript:void(0)' data-id6='"+action+"' class='edit' data-id1={{bidid}} data-id2={{pname}} data-id3={{cname}} data-id4='{{volume}}' data-id5='{{unit}}'>"+action+"</a></td></tr>";
+    list.append(add);
+    {{/each}}
+  }
+    </script>  
+</body>
+</html>

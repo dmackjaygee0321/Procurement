@@ -1,0 +1,455 @@
+<html>
+<head>
+    <!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="/home">Procurement</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Transaction
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+              <a class="nav-link" href="/inventory">Inventory</a>
+              <a class="nav-link" href="/inventory">Order Product</a>
+              <a class="nav-link" href="/inventory">Deliver Product</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Monitoring
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" href="/vproduct">Supply</a>
+                <a class="dropdown-item" href="/viewbid">Bidding</a>
+                
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/invalid">New Supplier</a>
+                <a class="dropdown-item" href="/approvesupp">Approve Supplier</a>
+                <a class="dropdown-item" href="/denysupp">Deny Supplier</a>
+                
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Maintenance
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" href="/category">Category</a>
+                <a class="dropdown-item" href="/product">Product</a>
+              </div>
+            </li>
+          </ul>
+          
+    <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Logout <span class="sr-only">(current)</span></a>
+            </li>
+    </ul>
+      </nav>
+
+
+   
+      <form method="Post" action="/addcategory" style="padding-left: 100px; padding-right: 100px; padding-top: 80px;">
+  <fieldset>
+      <legend style="text-align: center;">Product Details</legend>
+    <div class="form-group">
+      <label for="disabledTextInput" id="pname">Product Name:</label>
+    </div>
+    <div class="form-group">
+      <label for="disabledTextInput" id="pcategory">Category: </label>
+    </div>
+    <div class="form-group">
+      <label for="disabledTextInput" id="pvolume">Volume: </label>
+    </div>
+    <div class="form-group">
+      <label for="disabledTextInput" id="punit">Unit: </label>
+    </div>
+    <div class="form-group">
+      <label for="disabledTextInput" id="pmovement">Movement: </label>
+    </div>
+  </fieldset>
+</form>
+
+<fieldset style="margin-left:100px; margin-right:100px; margin-bottom:100px;">
+  <div class="table-responsive">
+  <legend style="text-align: center;">View Active Supplier</legend>
+<table class="table" id="mytable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Contact_Person</th>
+                  <th>Position</th>
+                  <th>Company</th>
+                  <th>Type</th>
+                  <th>Address</th>
+                  <th>Contact_No.</th>
+                  <th>Price_Per_Volume</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+  <tbody id="yey">
+ </tbody>
+</table>
+</div>
+  
+</fieldset>
+
+
+<fieldset style="margin-left:100px; margin-right:100px; margin-bottom:100px;">
+  <div class="table-responsive">
+  <legend style="text-align: center;">View Inactive Supplier</legend>
+<table class="table" id="mytable1">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Contact_Person</th>
+                  <th>Position</th>
+                  <th>Company</th>
+                  <th>Type</th>
+                  <th>Address</th>
+                  <th>Contact_No.</th>
+                  <th>Price_Per_Volume</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+  <tbody>
+    {{#each resultss}}
+    <tr>
+      <td>{{sid}}</td>
+      <td>{{sname}}</td>
+      <td>{{sposition}}</td>
+      <td>{{scompany}}</td>
+      <td>{{stype}}</td>
+      <td>{{saddress}}</td>
+      <td>{{scontact}}</td>
+      <td>{{pprice}}</td>
+      <td><a href="javascript:void(0)" class="edit"  data-id1="{{psupid}}" data-id2="1" data-id3="{{pid}}">Active</a></td>
+    </tr>
+    {{/each}}
+ </tbody>
+</table>
+</div>
+  
+</fieldset>
+
+
+<center>
+  <button type="button"  id="bidbut" style="width: 15%;" onclick="create();" class="btn btn-primary btn-lg btn-block">Create Auction</button>
+
+</center>
+
+ <form id="myForm" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Create Auction</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="form-group">
+                  <label for="disabledSelect" id="product">Product: </label>
+              </div>
+              
+              <div class="form-group">
+                  <label for="disabledSelect" id="category">Category: </label>
+              </div>
+              
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="product_id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" onclick="createbid();" class="btn btn-primary">Create</button>
+            </div>
+          </div>
+        </div>
+       </div>
+       </div>
+  </form>
+
+
+ <form id="myForm1" method="post">
+       <div class="modal fade" id="OrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Order Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="form-group">
+                  <label for="disabledSelect" id="oproduct">Product: </label>
+              </div>
+              
+              <div class="form-group">
+                  <label for="disabledSelect" id="ocategory">Category: </label>
+              </div>
+              
+              <div class="form-group">
+                  <label for="disabledSelect" id="lvolume">Volume</label>
+                  <input type="Number" name="tvol" id="tvol" class="form-control product_name"  onkeyup="volkeypress()" onmouseup="volkeypress()" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="disabledSelect" id="lunit">Unit</label>
+                  <input type="Number" name="tunit" class="form-control product_name" id="tunit"  onkeyup="unitkeypress()" onmouseup="unitkeypress()"required>
+              </div>
+
+               
+              <div class="form-group">
+                  <label for="disabledSelect" id="oprice">Order Price: 0</label>
+              </div>
+              
+        </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="product_id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" onclick="order();" class="btn btn-primary">Order</button>
+            </div>
+          </div>
+       </div>
+       </div>
+  </form>
+
+	 <!-- Delete Product Modal-->
+ 	  <form id="add-row-form" action="/delete" method="post">
+ 	     <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 	        <div class="modal-dialog">
+ 	           <div class="modal-content">
+ 	               <div class="modal-header">
+									 	<h5 class="modal-title" id="myModalLabel">Delete Product</h5>
+ 	                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ 	               </div>
+ 	               <div class="modal-body">
+												 <strong>Are You Sure To Delete This Data?</strong>
+ 	               </div>
+ 	               <div class="modal-footer">
+									 		<input type="hidden" name="product_id" class="form-control product_id2" required>
+ 	                   	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+ 	                  	<button type="submit" class="btn btn-success">Delete</button>
+ 	               </div>
+ 	      			</div>
+ 	        </div>
+ 	     </div>
+ 	 </form>
+
+
+
+    <script>
+    let update;
+    var fpv;
+    var pid;
+    var bidid;
+    var pprice;
+    var sid;
+    var total;
+    $(document).ready(function(){
+
+      
+       $('#mytable').on('click','.order',function(){
+
+        $('#OrderModal').modal('show');
+        sid = $(this).data('id1');
+        pprice = $(this).data('id2');
+        document.getElementById("oproduct").innerHTML = document.getElementById("pname").innerHTML;
+        document.getElementById("ocategory").innerHTML = document.getElementById("pcategory").innerHTML;
+        document.getElementById("tvol").value = "0";
+        document.getElementById("tunit").value = "0";
+        
+
+      });
+
+       $('#mytable').on('click','.edit',function(){
+        var id = $(this).data('id1');
+        var name = $(this).data('id2');
+        var name1 = $(this).data('id3');
+        window.location.href = "/active?para1="+id+"&para2="+name+"&para3="+name1;
+
+
+      });
+      
+       $('#mytable1').on('click','.edit',function(){
+        var id = $(this).data('id1');
+        var name = $(this).data('id2');
+        var name1 = $(this).data('id3');
+        window.location.href = "/active?para1="+id+"&para2="+name+"&para3="+name1;
+
+
+      });
+
+      displayd();
+      displayactive();
+    });
+    let actions = "";
+    function createbid()
+    {
+        actions = "\createbid?para1="+pid;
+        document.getElementById("myForm").action = actions;
+    }
+    function order()
+    {
+        document.getElementById("myForm1").action = "/order?para1="+sid+"&para2="+pid+"&para3="+total;
+    }
+    function create()
+    {
+      
+        var hez = document.getElementById("bidbut").innerHTML;
+        if(hez.toString() == "Create Auction")
+        {
+        $('#EditModal').modal('show');
+        
+           document.getElementById("product").innerHTML = document.getElementById("pname").innerHTML;
+           document.getElementById("category").innerHTML = document.getElementById("pcategory").innerHTML;
+        }
+        else
+        {
+          alert("asd");
+          actions = "\stopbid?para1="+pid+"&para2="+bidid;
+          window.location.href = actions;
+        }
+    }
+      function displayd()
+      {  
+          var pb;
+          var quantity;
+          var unitm;
+          {{#each result}}
+          document.getElementById("pname").innerHTML += " {{pname}}";
+          document.getElementById("pcategory").innerHTML += " {{cname}}";
+          pb = parseInt("{{bp}}");
+          quantity = "{{quantity}}";
+          var b = "{{bundle}}";
+          unitm = "{{unitm}}";
+          document.getElementById("punit").innerHTML += " "+quantity+" "+unitm;
+          pid = "{{pid}}";
+          var bool = "{{movement}}";
+          var movement = "Slow Moving";
+          if(bool == true)
+          {
+              movement = "Fast Moving";
+          }
+          document.getElementById("pmovement").innerHTML += " "+movement;
+          var temp = parseInt(quantity);
+          var num = 0;
+          fpv = pb;
+          while(temp >= pb)
+          {
+              num++;
+              temp -= pb;
+          }
+          
+          document.getElementById("pvolume").innerHTML += " "+num+" "+b;
+
+          
+            var color = "red";
+            if(bool == true)
+            {
+                if(num > 3)
+                {
+                      color = "yellow";
+                }
+            }
+            else
+            {  
+                if(num > 1)
+                {
+                      color = "yellow";
+                }
+            }
+            
+          document.getElementById("pvolume").style.background = color;
+          document.getElementById("punit").style.background = color;
+          {{/each}} 
+          let bidc = 0;
+          {{#each bid}}
+          bidc++;
+          bidid = "{{bidid}}";
+          {{/each}}
+          if(bidc > 0)
+          {
+             document.getElementById("bidbut").innerHTML = "Stop Auction";
+          }
+          else
+          {
+             document.getElementById("bidbut").innerHTML = "Create Auction";
+          }
+      }
+      
+  function volkeypress()
+  {
+     var nvol = document.getElementById("tvol").value;
+     var nunit = document.getElementById("tunit").value;
+
+      
+    var remain = nunit % fpv;
+    document.getElementById("tunit").value = ((parseInt(nvol) * fpv) + remain);
+    totalprice();
+
+  }
+  function totalprice()
+  {
+    
+     var nvol = document.getElementById("tvol").value;
+     var nunit = document.getElementById("tunit").value;
+      var remain = nunit % fpv;
+      var ppcs = pprice / fpv;
+      var pricer = remain * ppcs;
+      var oprice = nvol * pprice;
+      total = pricer + oprice;
+      document.getElementById("oprice").innerHTML = "Order Price: " + total;
+  }
+  
+  function unitkeypress()
+  {
+      var nvol = document.getElementById("tvol").value;
+      var nunit = document.getElementById("tunit").value;
+      var temp = nunit;
+      var num = 0;
+      while(temp >= fpv)
+      {  
+          temp-= fpv;
+          num++;
+      }
+      document.getElementById("tvol").value = num;
+      totalprice();
+  } 
+
+  function displayactive()
+  {
+    var list = $("#yey");
+    {{#each results}}
+    var add = "<tr><td>{{sid}}</td><td>{{sname}}</td><td>{{sposition}}</td><td>{{scompany}}</td><td>{{stype}}</td><td>{{saddress}}</td><td>{{scontact}}</td><td>{{pprice}}</td>"+
+    "<td><a href='javascript:void(0)'  data-id1='{{sid}}' data-id2='{{pprice}}' class='order'>Order</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)' class='edit'  data-id1='{{psupid}}' data-id2='0' data-id3='{{pid}}'>Inactive</a></td></tr>";
+    
+    list.append(add);
+    {{/each}}
+  }
+  </script>
+</body>
+</html>

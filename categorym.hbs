@@ -1,0 +1,201 @@
+
+<html>
+<head>
+    <!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<style>
+  td,th
+  {
+      text-align: center;
+  }
+</style>
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+  
+    
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="/home">Procurement</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Transaction
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+              <a class="nav-link" href="/inventory">Inventory</a>
+              <a class="nav-link" href="/inventory">Order Product</a>
+              <a class="nav-link" href="/inventory">Deliver Product</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Monitoring
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" href="/vproduct">Supply</a>
+                <a class="dropdown-item" href="/viewbid">Bidding</a>
+                
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/invalid">New Supplier</a>
+                <a class="dropdown-item" href="/approvesupp">Approve Supplier</a>
+                <a class="dropdown-item" href="/denysupp">Deny Supplier</a>
+                
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Maintenance
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                <a class="dropdown-item" href="/category">Category</a>
+                <a class="dropdown-item" href="/product">Product</a>
+              </div>
+            </li>
+          </ul>
+          
+    <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Profile <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Logout <span class="sr-only">(current)</span></a>
+            </li>
+    </ul>
+      </nav>
+
+
+   
+      <form method="Post" action="/addcategory" style="padding: 100px;">
+  <fieldset>
+      <legend style="text-align: center;">Add Category</legend>
+    <div class="form-group">
+      <label for="disabledTextInput">Category Name:</label>
+      <input type="text" id="disabledTextInput" name="name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="disabledTextInput">Description:</label>
+      <input type="text" name="category" id="disabledTextInput" class="form-control">
+    </div>
+    <button type="submit"  name="add" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+
+<fieldset style="padding:100px">
+  <div class="table-responsive">
+  <legend style="text-align: center;">View Categories</legend>
+<table class="table" id="mytable">
+<thead>
+    <tr>
+      <th>#</th>
+      <th>Category Name</th>
+      <th>Description</th>
+      <th>Maintenance</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each result}}
+     <tr>
+      <th scope="row">{{cid}}</th>
+      <th scope="row">{{cname}}</th>
+      <th scope="row">{{description}}</th>
+       <td>
+       <a href="javascript:void(0);"  class ="edit"  data-id1="{{cid}}" data-id2="{{cname}}" data-id3="{{description}}" >Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <a href="javascript:void(0);"  class ="delete" data-id1="{{cid}}" >Delete</a>
+       </td>
+    </tr>
+     {{/each}}
+ </tbody>
+</table>  
+</div>
+</fieldset>
+
+   <form id="myForm" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <input type="text" name="category" id="cat" class="form-control product_name" placeholder="Category Name" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="desc" class="form-control product_name" id="des" placeholder="Description" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="product_id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+
+	 <!-- Delete Product Modal-->
+ 	  <form id="add-row-form" action="/delete" method="post">
+ 	     <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 	        <div class="modal-dialog">
+ 	           <div class="modal-content">
+ 	               <div class="modal-header">
+									 	<h5 class="modal-title" id="myModalLabel">Delete Product</h5>
+ 	                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ 	               </div>
+ 	               <div class="modal-body">
+												 <strong>Are You Sure To Delete This Data?</strong>
+ 	               </div>
+ 	               <div class="modal-footer">
+									 		<input type="hidden" name="product_id" class="form-control product_id2" required>
+ 	                   	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+ 	                  	<button type="submit" class="btn btn-success">Delete</button>
+ 	               </div>
+ 	      			</div>
+ 	        </div>
+ 	     </div>
+ 	 </form>
+
+
+
+    <script>  
+    let update;
+    $(document).ready(function(){
+			//showing data to modal for edit record
+      $('#mytable').on('click','.delete',function(){
+        var id = $(this).data('id1');
+        window.location.href = "/deletecategory?para1="+id;
+      });
+      
+      $('#mytable').on('click','.edit',function(){
+        
+        var id = $(this).data('id1');
+        var cat = $(this).data('id2');
+        var des = $(this).data('id3');
+        update = "/updatecategory?para1="+id;
+        document.getElementById("cat").value = cat;
+        document.getElementById("des").value = des;
+        document.getElementById("myForm").action = update;
+        $('#EditModal').modal('show');
+      });
+
+    });
+  </script>
+</body>
+</html>

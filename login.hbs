@@ -1,0 +1,107 @@
+<html>
+<head>
+    
+<link rel="stylesheet" href="design.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="/addsupplier" method="POST">
+                <h1>Create Account</h1>
+                <input type="text" name="name" placeholder="Contact Person" />
+                <input type="text" name="company" placeholder="Company Name"/>
+                <input type="text" name="position" placeholder="Position"/>
+                <input type="text" name="type" placeholder="Supplier Type"/>
+                <input type="text" name="address" placeholder="Address" />
+                <input type="tel" name="tel" placeholder="Contact Number"/>
+                <input type="email" name="email" placeholder="Email" />
+                <input type="password" name="pass" placeholder="Password" />
+                <button>Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="/login" method="POST">
+                <h1>Sign in</h1>
+                <input type="email" id="email" name="email" placeholder="Email" />
+                <input type="password" name="pass" id="pass" placeholder="Password" />
+                <a href="#">Forgot your password?</a>
+                <input id="login" type="button" value="submit"/>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>
+            Created with <i class="fa fa-heart"></i> by
+            <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+            - Read how I created this and how you can join the challenge
+            <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+        </p>
+    </footer>
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const login = document.getElementById('login');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+	    container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+    	container.classList.remove("right-panel-active");
+        });
+
+        login.addEventListener('click', () => {
+            var x = 0;
+            var user = document.getElementById("email").value;
+            var pass = document.getElementById("pass").value;
+            console.log(user+" "+pass);
+            {{#each result}}
+            if(user.toString() == "{{semail}}"&&pass.toString() == "{{spass}}")
+            {   
+                localStorage.setItem("sid","{{sid}}");
+                x = 1;
+            }
+            {{/each}}
+            if(x == 1)
+            {
+                alert("Successfully Login");
+                window.location.href = "\shome";
+            }
+            else if(user == "admin@admin" && pass == "pass")
+            {
+                alert("Successfully Login");
+                window.location.href = "\home";
+            }
+            else
+            {
+                alert("Incorrect Username or Password");
+            }
+            
+        });
+
+        
+        
+
+
+    </script>
+</body>
+</html>
